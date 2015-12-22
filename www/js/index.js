@@ -126,16 +126,36 @@ var confDB = {
 
         tx.executeSql(sql);
 
-        /*Insertamos datos
-        sql="INSERT INTO registro(nombre_apellidos,edad,localidad,telefono,email)"+
-                " VALUES('Sergio Vera Leal','20','Valencia','633233322','email@gmail.com');";
+
+        //PASO 3  - Insertamos valores 
+
+        sql="INSERT INTO registro(nombre_apellidos,edad,localidad,telefono,email,foto,ultimo)"+
+                " VALUES('Sergio Vera Leal','20','Valencia','633233322','email@gmail.com','',0);";
 
         tx.executeSql(sql);
 
-        sql="INSERT INTO registro(nombre_apellidos,edad,localidad,telefono,email)"+
-                " VALUES('Ignacio Ferrer','19','Benetusser','633567643','email2@gmail.com');";
+        sql="INSERT INTO registro(nombre_apellidos,edad,localidad,telefono,email,foto,ultimo)"+
+                " VALUES('Ignacio Ferrer','19','Benetusser','633233322','email@gmail.com','',0);";
 
-        tx.executeSql(sql);*/
+        tx.executeSql(sql);
+
+        sql="INSERT INTO registro(nombre_apellidos,edad,localidad,telefono,email,foto,ultimo)"+
+                " VALUES('Andrea Alfonso','19','Valencia','633233322','email@gmail.com','',0);";
+
+        tx.executeSql(sql);
+
+        sql="INSERT INTO registro(nombre_apellidos,edad,localidad,telefono,email,foto,ultimo)"+
+                " VALUES('Alvaro Tronchoni','21','Valencia','633233322','email@gmail.com','',0);";
+
+        tx.executeSql(sql);
+
+        
+        //Ponemos como valor 1 los tres últimos registros
+        sql = "UPDATE registro SET ultimo = 1 WHERE id IN (SELECT id from registro ORDER BY id DESC LIMIT 3)";
+        
+        tx.executeSql(sql);
+
+
 
     },
     createDBError:function(err){
