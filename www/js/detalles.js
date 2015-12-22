@@ -4,10 +4,13 @@ var localidad="";
 var telefono="";
 var email="";
 var foto="";
+var ultimo="";
 var db="";
 var id="";
 
 var inicia = {
+
+    //PASO 5  - Detalles
 
 initialize: function(){
 
@@ -40,6 +43,8 @@ initialize: function(){
                         telefono=fila.telefono;
                         email=fila.email;
                         foto=fila.foto;
+                        ultimo = fila.ultimo
+                        
                         //Aquí actualizaría automaticamente el html
                         console.log("ROW "+i+" nombre: "+fila.nombre_apellidos);
                         $("#nombre_apellidos").append(nombre_apellidos);
@@ -48,6 +53,7 @@ initialize: function(){
                         $("#telefono").append(telefono);
                         $("#correo").append(email);
                         $("#avatar").attr("src",foto);
+                        $("#ultimo").append(ultimo);
 
                     }
                 }
