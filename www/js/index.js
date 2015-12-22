@@ -33,7 +33,9 @@ var cargarDB = {
         this.db.transaction(this.mostrarDB,this.mostrarDBError);
     },
     mostrarDB:function(tx){
-        var sql="SELECT * FROM registro;";
+        //PASO 4  - Hacemos la select y lo ordenamos poniendo 1º los valores en 1 y ultimo los valores en 0
+
+        var sql="SELECT * FROM registro ORDER BY ultimo DESC;";
         console.log("Lanzamos la consulta");
         tx.executeSql(
             sql,
@@ -46,7 +48,7 @@ var cargarDB = {
                         var fila=result.rows.item(i);
                         //Aquí actualizaría automaticamente el html
                         console.log("ROW "+i+" nombre: "+fila.nombre_apellidos+" foto: "+fila.foto);
-                        $("#lista ul").append("<li id='"+fila.id+"' class='listaUsers'><a href='detalles.html' data-ajax='false'><img src='"+fila.foto+"' ><div align='center'>"+fila.nombre_apellidos+"</div><div class='profesionLista' align='center'>"+fila.localidad+"</div></a></li>").listview('refresh');
+                        $("#lista ul").append("<li id='"+fila.id+"' class='listaUsers'><a href='detalles.html' data-ajax='false'><img src='"+fila.foto+"' ><div align='center'>"+fila.nombre_apellidos+"</div><div class='profesionLista' align='center'>"+fila.ultimo+"</div></a></li>").listview('refresh');
                     }
                 }
                 //Guardamos la id en el LocalStorage
@@ -121,7 +123,7 @@ var confDB = {
                 "localidad VARCHAR(100),"+
                 "telefono VARCHAR(15),"+
                 "email VARCHAR(256),"+
-                "foto VARCHAR(256),"
+                "foto VARCHAR(256)," +
                 "ultimo INTEGER(1) CHECK (ultimo >= 0 and ultimo <= 1));";
 
         tx.executeSql(sql);
@@ -154,8 +156,6 @@ var confDB = {
         sql = "UPDATE registro SET ultimo = 1 WHERE id IN (SELECT id from registro ORDER BY id DESC LIMIT 3)";
         
         tx.executeSql(sql);
-
-
 
     },
     createDBError:function(err){
