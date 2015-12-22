@@ -111,6 +111,8 @@ var confDB = {
     createLocalDB:function(tx){
         tx.executeSql("DROP TABLE IF EXISTS registro");
 
+        //PASO 2 - Campo ultimo 
+        //         CHECK para que solo tenga valor 0 o 1
 
         var sql="CREATE TABLE IF NOT EXISTS registro("+
                 "id INTEGER PRIMARY KEY AUTOINCREMENT,"+
@@ -119,7 +121,8 @@ var confDB = {
                 "localidad VARCHAR(100),"+
                 "telefono VARCHAR(15),"+
                 "email VARCHAR(256),"+
-                "foto VARCHAR(256));";
+                "foto VARCHAR(256),"
+                "ultimo INTEGER(1) CHECK (ultimo >= 0 and ultimo <= 1));";
 
         tx.executeSql(sql);
 
